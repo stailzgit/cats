@@ -1,0 +1,21 @@
+.navbar__wrap {
+  width: 100%;
+  position: fixed;
+  height: 64px;
+  background-color: #2196F3;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  height: 100%;
+}
+
+.navbar__item {
+  padding: 23px 13px;
+  color: white;
+}
+
+.navbar__item.navbar__item--current {
+  background-color: #1E88E5;
+}
