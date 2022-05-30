@@ -1,9 +1,11 @@
+//Base
 import React, { useMemo, useState } from "react";
 import "./Cat.css";
+//Components
 import { ICat } from "../../models/ICat";
-import CatPreview from "../../assets/cat_preview.png";
 import HeartFilledImg from "../../assets/heart-filled.svg";
 import HeartBorderImg from "../../assets/heart-border.svg";
+//Hooks
 import { useActions } from "../../hooks/useActions";
 import { useDoubleTap } from "use-double-tap";
 
@@ -16,7 +18,8 @@ const Cat = React.memo((props: ICat) => {
   const [hoveredHeart, setHoveredHeart] = useState(false);
   const [hoveredCat, setHoveredCat] = useState(false);
 
-  const catImg = isLoadedImg ? url : CatPreview;
+  //Styles
+  const styleCatImg = isLoadedImg ? "cat__img" : "cat__img--loading";
 
   let favIcon = "";
 
@@ -30,11 +33,13 @@ const Cat = React.memo((props: ICat) => {
     favIcon = "";
   }
 
+  //Functions Redux
   const onFavClick = () => toggleFavorites(id);
 
+  //Functions local
   const onCatImgLoad = () => setIsLoadedImg(true);
 
-  const bind = useDoubleTap((event) => {
+  const bindDoubleTouch = useDoubleTap(() => {
     onFavClick();
   });
 
@@ -43,11 +48,11 @@ const Cat = React.memo((props: ICat) => {
       className="cat__wrap"
       onMouseOver={() => setHoveredCat(true)}
       onMouseOut={() => setHoveredCat(false)}
-      {...bind}
+      {...bindDoubleTouch}
     >
       <img
-        src={catImg}
-        className="cat__img"
+        src={url}
+        className={styleCatImg}
         alt="img-cat"
         onLoad={onCatImgLoad}
       />

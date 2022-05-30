@@ -3,16 +3,14 @@ import "./Favorites.css";
 import { useAppSelector } from "../../hooks/redux";
 import CatsList from "../../components/CatsList/CatsList";
 
-type Props = {};
-
-const Favorites = (props: Props) => {
+const Favorites = () => {
   //State Redux
   const { cats } = useAppSelector((state) => state.catsReducer);
 
   const favoritesCats = cats.filter((cat) => cat.isInFavorites);
 
   if (!favoritesCats.length) {
-    return <div>Нет любимых котиков</div>;
+    return <h2 className="no-fav-cats">Нет любимых котиков :(</h2>;
   }
 
   return <CatsList cats={favoritesCats} />;

@@ -3,9 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import { ROUTES } from "../../router/routesConsts";
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const location = useLocation();
 
   const styleNavbarItem = (route: string) =>

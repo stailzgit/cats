@@ -3,6 +3,10 @@ import { ICat } from "../models/ICat";
 
 const instance = axios.create({
   baseURL: "https://api.thecatapi.com/v1/",
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": "DEMO-API-KEY",
+  },
 });
 
 export default class CatsService {

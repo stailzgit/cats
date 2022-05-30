@@ -1,58 +1,43 @@
-import React, { useEffect, useState } from "react";
+//Base
+import React, { useEffect } from "react";
 import "./Cats.css";
+//Hooks
 import { useAppSelector } from "../../hooks/redux";
 import { useActions } from "../../hooks/useActions";
-import Cat from "../../components/Cat/Cat";
 import { useObserver } from "../../hooks/useObserver";
-import { useRef, MutableRefObject } from "react";
+import { useRef } from "react";
+//Components
 import CatsList from "../../components/CatsList/CatsList";
-type Props = {};
 
-const Cats = (props: Props) => {
-  const { fetchCats } = useActions();
-  const { cats, error, isLoading } = useAppSelector(
+const Cats = () => {
+  const { fetchCats, setPage } = useActions();
+  const { cats, error, isLoading, limit, totalPages, page } = useAppSelector(
     (state) => state.catsReducer
   );
-  const [totalPages, setTotalPages] = useState(0);
-  const [page, setPage] = useState(1);
 
   const lastElement = useRef(null);
 
-  useObserver(lastElement, true, isLoading, () => {
+  useObserver(lastElement, page < totalPages, isLoading, () => {
     setPage(page + 1);
   });
 
   useEffect(() => {
-    fetchCats(10, 1);
+    fetchCats(limit, 1);
   }, []);
 
   useEffect(() => {
-    fetchCats(10, page);
+    fetchCats(limit, page);
   }, [page]);
 
-  if (error) return <div>{error}</div>;
-
-  // return (
-  //   <div className="cats__wrap">
-  //     <div className="container">
-  //       <div className="cats">
-  //         {cats.map((cat, index) => (
-  //           <Cat key={"" + cat.id + index} {...cat} />
-  //         ))}
-  //         <div ref={lastElement}>last</div>
-  //         {isLoading && (
-  //           <div>Loading.......................................</div>
-  //         )}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+  if (error) return <h2>{error}</h2>;
 
   return (
     <>
       <CatsList cats={cats} />
-      <div ref={lastElement}>last</div>
-      {isLoading && <div>Loading...</div>}
+      <div className="last-element" ref={lastElement}></div>
+      {isLoading && (
+        <div className="cats-loading">... загружаем еще котиков ...</div>
+      )}
     </>
   );
 };

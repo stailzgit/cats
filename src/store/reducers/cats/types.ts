@@ -4,7 +4,9 @@ export interface ContactsState {
   cats: ICat[];
   isLoading: boolean;
   error: string;
-  // favorives: string[];
+  totalPages: number;
+  limit: number;
+  page: number;
 }
 
 export enum CatsActionEnum {
@@ -13,12 +15,23 @@ export enum CatsActionEnum {
   GET_CATS = "GET_CATS",
   ADD_CATS = "ADD_CATS",
   TOGGLE_FAVORITES = "TOGGLE_FAVORITES",
-  // DEL_FROM_FAVORITES = "DEL_FROM_FAVORITES",
+  SET_TOTAL_PAGES = "SET_TOTAL_PAGES",
+  SET_PAGE = "SET_PAGE",
 }
 
 export interface SetErrorAction {
   type: CatsActionEnum.SET_ERROR;
   payload: string;
+}
+
+export interface SetTotalPages {
+  type: CatsActionEnum.SET_TOTAL_PAGES;
+  payload: number;
+}
+
+export interface SetPage {
+  type: CatsActionEnum.SET_PAGE;
+  payload: number;
 }
 
 export interface SetIsLoadingAction {
@@ -41,14 +54,11 @@ export interface ToggleFavoritesAction {
   payload: string;
 }
 
-// export interface DelFromFavoritesAction {
-//   type: CatsActionEnum.DEL_FROM_FAVORITES;
-//   payload: string;
-// }
-
 export type CatsActions =
   | SetErrorAction
   | SetIsLoadingAction
   | GetCatsAction
   | AddCatsAction
-  | ToggleFavoritesAction;
+  | ToggleFavoritesAction
+  | SetTotalPages
+  | SetPage;

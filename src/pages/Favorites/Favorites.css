@@ -1,0 +1,10 @@
+.no-fav-cats {
+  margin: 0 auto;
+  width: fit-content;
+  font-size: 20px;
+}
+
+.no-fav-cats__link {
+  color: #2196F3;
+  font-size: 14px;
+}

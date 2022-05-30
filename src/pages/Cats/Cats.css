@@ -3,15 +3,19 @@
   display: grid;
   grid-template-columns: repeat(5, calc(20% - 32px));
   gap: 40px;
-  /* padding: 0 20px; */
   overflow-y: visible;
+}
+
+.last-element {
+  visibility: hidden;
+  height: 1px;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
   .cats {
     grid-template-columns: repeat(4, calc(25% - 15px));
     gap: 20px;
-    /* padding: 0 10px; */
   }
 }
 

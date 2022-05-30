@@ -5,7 +5,9 @@ const initialState: ContactsState = {
   error: "",
   isLoading: false,
   cats: [] as ICat[],
-  // favorives: [],
+  totalPages: 1,
+  limit: 20,
+  page: 1,
 };
 
 export default function contactsReducer(
@@ -25,6 +27,14 @@ export default function contactsReducer(
     case CatsActionEnum.GET_CATS:
       return { ...state, cats: action.payload };
 
+    case CatsActionEnum.SET_PAGE:
+      return { ...state, page: action.payload };
+
+    case CatsActionEnum.SET_TOTAL_PAGES:
+      const totalItemCount = action.payload;
+      const totalPages = Math.ceil(totalItemCount / state.limit);
+      return { ...state, totalPages: totalPages };
+
     case CatsActionEnum.TOGGLE_FAVORITES:
       return {
         ...state,
@@ -34,12 +44,6 @@ export default function contactsReducer(
             : cat
         ),
       };
-
-    // case CatsActionEnum.DEL_FROM_FAVORITES:
-    //   return {
-    //     ...state,
-    //     favorives: state.favorives.filter((catId) => catId !== action.payload),
-    //   };
 
     default:
       return state;
