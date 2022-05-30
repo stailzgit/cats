@@ -65,3 +65,9 @@ body {
   max-width: calc(1300px);
   margin: 0 auto;
 }
+
+@media screen and (max-width: 700px) {
+  .app__content {
+    padding-top: calc(64px + 20px);
+  }
+}
