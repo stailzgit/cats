@@ -5,6 +5,7 @@ import CatPreview from "../../assets/cat_preview.png";
 import HeartFilledImg from "../../assets/heart-filled.svg";
 import HeartBorderImg from "../../assets/heart-border.svg";
 import { useActions } from "../../hooks/useActions";
+import { useDoubleTap } from "use-double-tap";
 
 const Cat = React.memo((props: ICat) => {
   const { id, url, isInFavorites } = props;
@@ -19,6 +20,8 @@ const Cat = React.memo((props: ICat) => {
 
   let favIcon = "";
 
+  const isShowFav = isInFavorites || hoveredHeart || hoveredCat;
+
   if (isInFavorites || hoveredHeart) {
     favIcon = HeartFilledImg;
   } else if (hoveredCat) {
@@ -31,11 +34,16 @@ const Cat = React.memo((props: ICat) => {
 
   const onCatImgLoad = () => setIsLoadedImg(true);
 
+  const bind = useDoubleTap((event) => {
+    onFavClick();
+  });
+
   return (
     <div
       className="cat__wrap"
       onMouseOver={() => setHoveredCat(true)}
       onMouseOut={() => setHoveredCat(false)}
+      {...bind}
     >
       <img
         src={catImg}
@@ -44,12 +52,12 @@ const Cat = React.memo((props: ICat) => {
         onLoad={onCatImgLoad}
       />
       <div
-        className="cat__fav"
+        className="cat__fav-wrap"
         onClick={onFavClick}
         onMouseOver={() => setHoveredHeart(true)}
         onMouseOut={() => setHoveredHeart(false)}
       >
-        <img src={favIcon} alt="" />
+        {isShowFav && <img className="cat__fav-img" src={favIcon} alt="" />}
       </div>
     </div>
   );
